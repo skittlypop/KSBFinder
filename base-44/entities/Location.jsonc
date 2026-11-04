@@ -1,0 +1,89 @@
+{
+  "name": "Location",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Storage location code, e.g. A-01-3 for rack bins or BULK-1 for floor zones"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "rack",
+        "floor"
+      ],
+      "default": "rack",
+      "description": "Rack bin or bulk floor zone"
+    },
+    "aisle": {
+      "type": "string",
+      "description": "Aisle letter for rack bins, e.g. A"
+    },
+    "rack": {
+      "type": "number",
+      "description": "Rack number within the aisle"
+    },
+    "bin": {
+      "type": "number",
+      "description": "Bin number within the rack"
+    },
+    "zone": {
+      "type": "string",
+      "description": "Zone name, e.g. Aisle A, Bulk Storage, Staging"
+    },
+    "label": {
+      "type": "string",
+      "description": "Human readable location, e.g. Aisle A \u00b7 Rack 1 \u00b7 Bin 3"
+    },
+    "capacity": {
+      "type": "number",
+      "description": "Nominal unit capacity of the location"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "plan_x": {
+      "type": "number",
+      "description": "Position on the floor plan image as a percentage from the left edge"
+    },
+    "plan_y": {
+      "type": "number",
+      "description": "Position on the floor plan image as a percentage from the top edge"
+    }
+  },
+  "required": [
+    "code",
+    "type"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

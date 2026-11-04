@@ -1,0 +1,61 @@
+{
+  "name": "FacilityPlan",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Label for the imported floor plan"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Public file (image or PDF) of the facility floor plan, used as the backdrop for the warehouse map"
+    },
+    "file_type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "pdf"
+      ],
+      "default": "image",
+      "description": "Whether the uploaded plan is a raster image or a PDF document"
+    },
+    "aspect": {
+      "type": "number",
+      "description": "Width divided by height of the plan, so bins stay aligned with the drawing"
+    }
+  },
+  "required": [
+    "image_url"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "StockLevel",
+  "type": "object",
+  "properties": {
+    "sku_code": {
+      "type": "string",
+      "description": "SKU code this placement belongs to"
+    },
+    "sku_name": {
+      "type": "string",
+      "description": "Item name, denormalised so a bin can list its contents in one read"
+    },
+    "location_code": {
+      "type": "string",
+      "description": "Bin or floor zone code, e.g. A-01-3"
+    }
+  },
+  "required": [
+    "sku_code",
+    "location_code"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

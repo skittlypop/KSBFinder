@@ -1,0 +1,101 @@
+{
+  "name": "SKU",
+  "type": "object",
+  "properties": {
+    "sku": {
+      "type": "string",
+      "description": "Stock keeping unit code, e.g. SKU-1001"
+    },
+    "name": {
+      "type": "string",
+      "description": "Item name shown in search results"
+    },
+    "category": {
+      "type": "string",
+      "description": "Item group, e.g. Fasteners, Electrical, Safety"
+    },
+    "description": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string",
+      "description": "How the item is stocked, e.g. Box of 100, Each, Roll"
+    },
+    "case_qty": {
+      "type": "number",
+      "description": "Number of items per case"
+    },
+    "supplier": {
+      "type": "string"
+    },
+    "barcode": {
+      "type": "string"
+    },
+    "subs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "SKU codes of substitutable items shown on the item card"
+    },
+    "subs_notes": {
+      "type": "string",
+      "description": "Extra detail about the substitute items, such as the reason for substitution or special handling"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Public photo of the item"
+    },
+    "bin_count": {
+      "type": "number",
+      "description": "Number of bin locations holding this item"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "discontinued"
+      ],
+      "default": "active"
+    },
+    "search_text": {
+      "type": "string",
+      "description": "Lowercase haystack of code, name, category, supplier and bin codes used by search"
+    }
+  },
+  "required": [
+    "sku",
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
